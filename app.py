@@ -1,4 +1,5 @@
 ﻿import streamlit as st
+st.set_page_config(page_title="Tactical Board", page_icon="⚽", layout="centered")
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
@@ -95,4 +96,5 @@ def draw_field(players, fill_c, border_c, field_c):
 
 # --- 6. Lancio ---
 field_fig = draw_field(current_players, c1_fill, c2_border, f_color)
+
 st.pyplot(field_fig)
