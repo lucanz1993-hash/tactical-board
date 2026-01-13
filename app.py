@@ -8,7 +8,7 @@ st.set_page_config(page_title="Tactical Board", page_icon="⚽", layout="centere
 
 # --- 2. Dimensioni Campo (Standard 11v11 scaled or specific 9v9) ---
 # Using standard proportions. For visuals, we treat X as Width (68) and Y as Length (105)
-field_length = 68
+field_length = 60
 field_width = 68
 
 # --- 3. Dati Formazioni (9 vs 9) ---
@@ -159,6 +159,7 @@ st.download_button(
     file_name=fn,
     mime="image/png"
 )
+
 
 
 
