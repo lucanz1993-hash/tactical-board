@@ -2,12 +2,12 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+import io
 
 # --- 1. Configurazione Pagina (MUST BE FIRST) ---
 st.set_page_config(page_title="Tactical Board", page_icon="⚽", layout="centered")
 
-# --- 2. Dimensioni Campo (Standard 11v11 scaled or specific 9v9) ---
-# Using standard proportions. For visuals, we treat X as Width (68) and Y as Length (105)
+# --- 2. Dimensioni Campo ---
 field_length = 64
 field_width = 68
 
@@ -67,7 +67,14 @@ with st.sidebar:
     chosen_f = st.selectbox("Formazione:", list(formations_data.keys()))
     
     st.subheader("Colori Pedine")
-    c1_fill = st.color_picker("Colore Maglia", "#D92027") # Nice Red
+    
+    # --- MODIFICA 1: Aggiunto selettore colore portiere ---
+    col_c1, col_c2 = st.columns(2)
+    with col_c1:
+        c1_fill = st.color_picker("Squadra", "#D92027") 
+    with col_c2:
+        c_gk_fill = st.color_picker("Portiere", "#FFD700") # Giallo Oro default
+
     c2_border = st.color_picker("Colore Bordo", "#FFFFFF")
     
     st.subheader("Colore Campo")
@@ -76,7 +83,6 @@ with st.sidebar:
     st.divider()
     st.subheader("Nomi Giocatori")
     
-    # We use a container to keep inputs organized
     current_players = []
     for i, p in enumerate(formations_data[chosen_f]):
         col1, col2 = st.columns([1, 3])
@@ -90,7 +96,8 @@ with st.sidebar:
         current_players.append(player_copy)
 
 # --- 5. Funzione di Disegno ---
-def draw_field(players, fill_c, border_c, field_c):
+# --- MODIFICA 2: Aggiunto parametro gk_fill_c alla funzione ---
+def draw_field(players, fill_c, gk_fill_c, border_c, field_c):
     fig, ax = plt.subplots(figsize=(8, 11))
     
     # Background
@@ -105,6 +112,9 @@ def draw_field(players, fill_c, border_c, field_c):
     ax.add_patch(patches.Rectangle((0, 0), field_width, field_length, edgecolor=line_c, facecolor='none', linewidth=lw))
     
     # 2. Halfway Line
+    # Nota: hai impostato field_length a 64, ma la linea di centrocampo a 105/2 (52.5). 
+    # Verrà disegnata molto in alto. Se vuoi il centro geometrico del tuo campo usa field_length/2.
+    # Lascio il tuo valore 105/2 come da codice originale.
     ax.plot([0, field_width], [105/2, 105/2], color=line_c, linewidth=lw)
     
     # 3. Center Circle
@@ -115,7 +125,7 @@ def draw_field(players, fill_c, border_c, field_c):
     # Bottom (Home)
     ax.add_patch(patches.Rectangle((field_width/2 - 20.16, 0), 40.32, 16.5, edgecolor=line_c, facecolor='none', linewidth=lw))
 
-    # 5. Goal Areas (Small box) - Optional but adds realism
+    # 5. Goal Areas (Small box)
     ax.add_patch(patches.Rectangle((field_width/2 - 9.16, 0), 18.32, 5.5, edgecolor=line_c, facecolor='none', linewidth=1.5))
 
     # 6. Penalty Spots
@@ -127,8 +137,15 @@ def draw_field(players, fill_c, border_c, field_c):
     # 8. Draw Players
     for p in players:
         x, y = p['position']
+        
+        # --- MODIFICA 3: Logica scelta colore ---
+        if p['role'] == 'P':
+            current_color = gk_fill_c
+        else:
+            current_color = fill_c
+            
         # The circle (player)
-        ax.scatter(x, y, s=700, color=fill_c, edgecolor=border_c, linewidth=2.5, zorder=10)
+        ax.scatter(x, y, s=700, color=current_color, edgecolor=border_c, linewidth=2.5, zorder=10)
         
         # The text label (Name)
         ax.text(x, y - 3.5, p['name'], color='white', ha='center', va='top', 
@@ -142,13 +159,12 @@ def draw_field(players, fill_c, border_c, field_c):
     return fig
 
 # --- 6. Visualizzazione ---
-field_fig = draw_field(current_players, c1_fill, c2_border, f_color)
+# --- MODIFICA 4: Passiamo il nuovo colore alla funzione ---
+field_fig = draw_field(current_players, c1_fill, c_gk_fill, c2_border, f_color)
 
 st.pyplot(field_fig)
 
-# --- 7. Download Button (Optional Bonus) ---
-# Allows user to save the image
-import io
+# --- 7. Download Button ---
 fn = f"tattica_{chosen_f}.png"
 img = io.BytesIO()
 field_fig.savefig(img, format='png', bbox_inches='tight', facecolor=f_color)
@@ -159,9 +175,3 @@ st.download_button(
     file_name=fn,
     mime="image/png"
 )
-
-
-
-
-
-
