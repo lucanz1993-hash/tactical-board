@@ -54,8 +54,8 @@ formations_data = {
         {'name': 'CS', 'role': 'C', 'position':(field_width *0.2, 32)},
         {'name': 'CC', 'role': 'C', 'position':(field_width *0.5, 27)},
         {'name': 'CD', 'role': 'C', 'position':(field_width *0.8, 32)},
-        {'name': 'COC', 'role': 'C', 'position':(field_width *0.5, 42)},
-        {'name': 'ATT', 'role': 'F', 'position':(field_width *0.5, 55)},
+        {'name': 'COC', 'role': 'C', 'position':(field_width *0.5, 40)},
+        {'name': 'ATT', 'role': 'F', 'position':(field_width *0.5, 50)},
     ]
 }
 
@@ -159,6 +159,7 @@ st.download_button(
     file_name=fn,
     mime="image/png"
 )
+
 
 
 
