@@ -39,8 +39,8 @@ formations_data = {
       {'name': 'POR', 'role': 'P', 'position':(field_width /2, 5)},
       {'name': 'TS', 'role': 'D', 'position':(field_width *0.2, 20)},
       {'name': 'DCS', 'role': 'D', 'position':(field_width *0.4, 17)},
-      {'name': 'DCD', 'role': 'D', 'position':(field_width *0.4, 17)},
-      {'name': 'TD', 'role': 'D', 'position':(field_width *0.8, 17)},
+      {'name': 'DCD', 'role': 'D', 'position':(field_width *0.6, 17)},
+      {'name': 'TD', 'role': 'D', 'position':(field_width *0.8, 20)},
       {'name': 'CS', 'role': 'C', 'position':(field_width *0.2, 35)},
       {'name': 'CC', 'role': 'C', 'position':(field_width *0.5, 30)},
       {'name': 'CD', 'role': 'C', 'position':(field_width *0.8, 35)},
@@ -51,10 +51,10 @@ formations_data = {
       {'name': 'TS', 'role': 'D', 'position':(field_width *0.2, 20)},
       {'name': 'DC', 'role': 'D', 'position':(field_width *0.5, 17)},
       {'name': 'TD', 'role': 'D', 'position':(field_width *0.8, 17)},
-      {'name': 'CS', 'role': 'C', 'position':(field_width *0.2, 35)},
-      {'name': 'CC', 'role': 'C', 'position':(field_width *0.5, 30)},
-      {'name': 'CD', 'role': 'C', 'position':(field_width *0.8, 35)},
-      {'name': 'COC', 'role': 'C', 'position':(field_width *0.5, 42)},
+      {'name': 'CS', 'role': 'C', 'position':(field_width *0.2, 32)},
+      {'name': 'CC', 'role': 'C', 'position':(field_width *0.5, 27)},
+      {'name': 'CD', 'role': 'C', 'position':(field_width *0.8, 32)},
+      {'name': 'COC', 'role': 'C', 'position':(field_width *0.5, 38)},
       {'name': 'ATD', 'role': 'F', 'position':(field_width *0.6, 48)},
   ]
 }
@@ -120,4 +120,5 @@ def draw_field(players, fill_c, border_c, field_c):
 field_fig = draw_field(current_players, c1_fill, c2_border, f_color)
 
 st.pyplot(field_fig)
+
 
