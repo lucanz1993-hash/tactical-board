@@ -55,7 +55,7 @@ formations_data = {
       {'name': 'CC', 'role': 'C', 'position':(field_width *0.5, 27)},
       {'name': 'CD', 'role': 'C', 'position':(field_width *0.8, 32)},
       {'name': 'COC', 'role': 'C', 'position':(field_width *0.5, 38)},
-      {'name': 'ATD', 'role': 'F', 'position':(field_width *0.6, 48)},
+      {'name': 'ATD', 'role': 'F', 'position':(field_width *0.5, 48)},
   ]
 }
 
@@ -120,5 +120,6 @@ def draw_field(players, fill_c, border_c, field_c):
 field_fig = draw_field(current_players, c1_fill, c2_border, f_color)
 
 st.pyplot(field_fig)
+
 
 
