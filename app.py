@@ -7,6 +7,21 @@ import io
 # --- 1. Configurazione Pagina (MUST BE FIRST) ---
 st.set_page_config(page_title="Tactical Board", page_icon="⚽", layout="centered")
 
+# --- 1.1 CSS Personalizzato (NUOVO) ---
+# Questo blocco forza il cursore a diventare una mano sopra i menu a discesa
+st.markdown("""
+<style>
+    /* Seleziona il contenitore del menu a discesa */
+    div[data-baseweb="select"] > div {
+        cursor: pointer !important;
+    }
+    /* Seleziona anche l'input di testo interno per essere sicuri */
+    div[data-baseweb="select"] input {
+        cursor: pointer !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # --- 2. Dimensioni Campo ---
 field_length = 64
 field_width = 68
@@ -64,16 +79,16 @@ st.title("⚽ Lavagna Tattica (9 vs 9)")
 
 with st.sidebar:
     st.header("Impostazioni")
+    # Il CSS applicato sopra renderà questo selectbox con cursore a mano
     chosen_f = st.selectbox("Formazione:", list(formations_data.keys()))
     
     st.subheader("Colori Pedine")
     
-    # --- MODIFICA 1: Aggiunto selettore colore portiere ---
     col_c1, col_c2 = st.columns(2)
     with col_c1:
         c1_fill = st.color_picker("Squadra", "#D92027") 
     with col_c2:
-        c_gk_fill = st.color_picker("Portiere", "#FFD700") # Giallo Oro default
+        c_gk_fill = st.color_picker("Portiere", "#FFD700")
 
     c2_border = st.color_picker("Colore Bordo", "#FFFFFF")
     
@@ -96,7 +111,6 @@ with st.sidebar:
         current_players.append(player_copy)
 
 # --- 5. Funzione di Disegno ---
-# --- MODIFICA 2: Aggiunto parametro gk_fill_c alla funzione ---
 def draw_field(players, fill_c, gk_fill_c, border_c, field_c):
     fig, ax = plt.subplots(figsize=(8, 11))
     
@@ -108,46 +122,41 @@ def draw_field(players, fill_c, gk_fill_c, border_c, field_c):
     line_c = "white"
     lw = 2
     
-    # 1. Main Rectangle
+    # Campo
     ax.add_patch(patches.Rectangle((0, 0), field_width, field_length, edgecolor=line_c, facecolor='none', linewidth=lw))
     
-    # 2. Halfway Line
-    # Nota: hai impostato field_length a 64, ma la linea di centrocampo a 105/2 (52.5). 
-    # Verrà disegnata molto in alto. Se vuoi il centro geometrico del tuo campo usa field_length/2.
-    # Lascio il tuo valore 105/2 come da codice originale.
-    ax.plot([0, field_width], [105/2, 105/2], color=line_c, linewidth=lw)
+    # Linea mediana (calibrata su field_length 64 se vuoi centrarla geometricamente usa field_length/2)
+    # Qui mantengo la tua logica originale (metà campo teorico standard) o adattata:
+    # Se il campo è alto 64, la metà è 32.
+    ax.plot([0, field_width], [32, 32], color=line_c, linewidth=lw)
     
-    # 3. Center Circle
-    ax.add_patch(patches.Circle((field_width/2, 105/2), 9.15, edgecolor=line_c, facecolor='none', linewidth=lw))
-    ax.add_patch(patches.Circle((field_width/2, 105/2), 0.5, color=line_c)) # Center spot
+    # Cerchio centrocampo
+    ax.add_patch(patches.Circle((field_width/2, 32), 9.15, edgecolor=line_c, facecolor='none', linewidth=lw))
+    ax.add_patch(patches.Circle((field_width/2, 32), 0.5, color=line_c)) 
 
-    # 4. Penalty Areas
-    # Bottom (Home)
+    # Area di rigore
     ax.add_patch(patches.Rectangle((field_width/2 - 20.16, 0), 40.32, 16.5, edgecolor=line_c, facecolor='none', linewidth=lw))
 
-    # 5. Goal Areas (Small box)
+    # Area piccola
     ax.add_patch(patches.Rectangle((field_width/2 - 9.16, 0), 18.32, 5.5, edgecolor=line_c, facecolor='none', linewidth=1.5))
 
-    # 6. Penalty Spots
+    # Dischetto
     ax.scatter(field_width/2, 11, color=line_c, s=15)
 
-    # 7. Goals (Posts)
+    # Porta
     ax.add_patch(patches.Rectangle((field_width/2 - 3.66, -2), 7.32, 2, edgecolor=line_c, facecolor='none', linewidth=2, alpha=0.7))
 
-    # 8. Draw Players
+    # Giocatori
     for p in players:
         x, y = p['position']
         
-        # --- MODIFICA 3: Logica scelta colore ---
         if p['role'] == 'P':
             current_color = gk_fill_c
         else:
             current_color = fill_c
             
-        # The circle (player)
         ax.scatter(x, y, s=700, color=current_color, edgecolor=border_c, linewidth=2.5, zorder=10)
         
-        # The text label (Name)
         ax.text(x, y - 3.5, p['name'], color='white', ha='center', va='top', 
                 fontweight='bold', fontsize=9, zorder=11,
                 bbox=dict(facecolor='black', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.2'))
@@ -159,7 +168,6 @@ def draw_field(players, fill_c, gk_fill_c, border_c, field_c):
     return fig
 
 # --- 6. Visualizzazione ---
-# --- MODIFICA 4: Passiamo il nuovo colore alla funzione ---
 field_fig = draw_field(current_players, c1_fill, c_gk_fill, c2_border, f_color)
 
 st.pyplot(field_fig)
