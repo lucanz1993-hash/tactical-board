@@ -8,7 +8,7 @@ st.set_page_config(page_title="Tactical Board", page_icon="⚽", layout="centere
 
 # --- 2. Dimensioni Campo (Standard 11v11 scaled or specific 9v9) ---
 # Using standard proportions. For visuals, we treat X as Width (68) and Y as Length (105)
-field_length = 105
+field_length = 68
 field_width = 68
 
 # --- 3. Dati Formazioni (9 vs 9) ---
@@ -105,29 +105,24 @@ def draw_field(players, fill_c, border_c, field_c):
     ax.add_patch(patches.Rectangle((0, 0), field_width, field_length, edgecolor=line_c, facecolor='none', linewidth=lw))
     
     # 2. Halfway Line
-    ax.plot([0, field_width], [field_length/2, field_length/2], color=line_c, linewidth=lw)
+    ax.plot([0, field_width], [field_length/2, 105/2], color=line_c, linewidth=lw)
     
     # 3. Center Circle
-    ax.add_patch(patches.Circle((field_width/2, field_length/2), 9.15, edgecolor=line_c, facecolor='none', linewidth=lw))
-    ax.add_patch(patches.Circle((field_width/2, field_length/2), 0.5, color=line_c)) # Center spot
+    ax.add_patch(patches.Circle((field_width/2, 105/2), 9.15, edgecolor=line_c, facecolor='none', linewidth=lw))
+    ax.add_patch(patches.Circle((field_width/2, 105/2), 0.5, color=line_c)) # Center spot
 
     # 4. Penalty Areas
     # Bottom (Home)
     ax.add_patch(patches.Rectangle((field_width/2 - 20.16, 0), 40.32, 16.5, edgecolor=line_c, facecolor='none', linewidth=lw))
-    # Top (Away)
-    ax.add_patch(patches.Rectangle((field_width/2 - 20.16, field_length - 16.5), 40.32, 16.5, edgecolor=line_c, facecolor='none', linewidth=lw))
 
     # 5. Goal Areas (Small box) - Optional but adds realism
     ax.add_patch(patches.Rectangle((field_width/2 - 9.16, 0), 18.32, 5.5, edgecolor=line_c, facecolor='none', linewidth=1.5))
-    ax.add_patch(patches.Rectangle((field_width/2 - 9.16, field_length - 5.5), 18.32, 5.5, edgecolor=line_c, facecolor='none', linewidth=1.5))
 
     # 6. Penalty Spots
     ax.scatter(field_width/2, 11, color=line_c, s=15)
-    ax.scatter(field_width/2, field_length-11, color=line_c, s=15)
 
     # 7. Goals (Posts)
     ax.add_patch(patches.Rectangle((field_width/2 - 3.66, -2), 7.32, 2, edgecolor=line_c, facecolor='none', linewidth=2, alpha=0.7))
-    ax.add_patch(patches.Rectangle((field_width/2 - 3.66, field_length), 7.32, 2, edgecolor=line_c, facecolor='none', linewidth=2, alpha=0.7))
 
     # 8. Draw Players
     for p in players:
@@ -164,4 +159,5 @@ st.download_button(
     file_name=fn,
     mime="image/png"
 )
+
 
