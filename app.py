@@ -22,7 +22,7 @@ formations_data = {
         {'name': 'CCD', 'role': 'C', 'position':(field_width *0.65, 35)},
         {'name': 'ES', 'role': 'C', 'position':(field_width *0.15, 40)},
         {'name': 'ED', 'role': 'C', 'position':(field_width *0.85, 40)},
-        {'name': 'ATT', 'role': 'F', 'position':(field_width *0.5, 55)},
+        {'name': 'ATT', 'role': 'F', 'position':(field_width *0.5, 50)},
     ],
     '3-3-2': [
         {'name': 'POR', 'role': 'P', 'position':(field_width /2, 5)},
@@ -164,3 +164,4 @@ st.download_button(
     file_name=fn,
     mime="image/png"
 )
+
