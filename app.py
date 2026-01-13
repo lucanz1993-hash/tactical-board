@@ -128,11 +128,11 @@ def draw_field(players, fill_c, gk_fill_c, border_c, field_c):
     # Linea mediana (calibrata su field_length 64 se vuoi centrarla geometricamente usa field_length/2)
     # Qui mantengo la tua logica originale (metà campo teorico standard) o adattata:
     # Se il campo è alto 64, la metà è 32.
-    ax.plot([0, field_width], [32, 32], color=line_c, linewidth=lw)
+    ax.plot([0, field_width], [105/2, 105/2], color=line_c, linewidth=lw)
     
     # Cerchio centrocampo
-    ax.add_patch(patches.Circle((field_width/2, 32), 9.15, edgecolor=line_c, facecolor='none', linewidth=lw))
-    ax.add_patch(patches.Circle((field_width/2, 32), 0.5, color=line_c)) 
+    ax.add_patch(patches.Circle((field_width/2, 105/2), 9.15, edgecolor=line_c, facecolor='none', linewidth=lw))
+    ax.add_patch(patches.Circle((field_width/2, 105/2), 0.5, color=line_c)) 
 
     # Area di rigore
     ax.add_patch(patches.Rectangle((field_width/2 - 20.16, 0), 40.32, 16.5, edgecolor=line_c, facecolor='none', linewidth=lw))
@@ -183,3 +183,4 @@ st.download_button(
     file_name=fn,
     mime="image/png"
 )
+
