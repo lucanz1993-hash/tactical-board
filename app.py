@@ -105,7 +105,7 @@ def draw_field(players, fill_c, border_c, field_c):
     ax.add_patch(patches.Rectangle((0, 0), field_width, field_length, edgecolor=line_c, facecolor='none', linewidth=lw))
     
     # 2. Halfway Line
-    ax.plot([0, field_width], [field_length/2, 105/2], color=line_c, linewidth=lw)
+    ax.plot([0, field_width], [105/2, 105/2], color=line_c, linewidth=lw)
     
     # 3. Center Circle
     ax.add_patch(patches.Circle((field_width/2, 105/2), 9.15, edgecolor=line_c, facecolor='none', linewidth=lw))
@@ -159,5 +159,6 @@ st.download_button(
     file_name=fn,
     mime="image/png"
 )
+
 
 
