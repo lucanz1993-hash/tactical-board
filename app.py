@@ -14,27 +14,27 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- 2. Database Formazioni ---
+# --- 2. Database Formazioni (Coordinate su Campo Intero 0-100%) ---
 tactics_db = {
     "Calcio a 5": {
         "dims": (25, 40),
         "formations": {
-            "1-2-1": [{'name':'P','r':'P','p':(12.5,2)},{'name':'D','r':'D','p':(12.5,8)},{'name':'LS','r':'C','p':(4,18)},{'name':'LD','r':'C','p':(21,18)},{'name':'PIV','r':'F','p':(12.5,25)}],
-            "2-2":   [{'name':'P','r':'P','p':(12.5,2)},{'name':'DS','r':'D','p':(6,10)},{'name':'DD','r':'D','p':(19,10)},{'name':'AS','r':'F','p':(6,25)},{'name':'AD','r':'F','p':(19,25)}]
+            "1-2-1": [{'name':'P','r':'P','p':(12.5,2)},{'name':'D','r':'D','p':(12.5,8)},{'name':'LS','r':'C','p':(4,18)},{'name':'LD','r':'C','p':(21,18)},{'name':'PIV','r':'F','p':(12.5,30)}],
+            "2-2":   [{'name':'P','r':'P','p':(12.5,2)},{'name':'DS','r':'D','p':(6,10)},{'name':'DD','r':'D','p':(19,10)},{'name':'AS','r':'F','p':(6,28)},{'name':'AD','r':'F','p':(19,28)}]
         }
     },
     "Calcio a 7": {
         "dims": (45, 60),
         "formations": {
-            "3-2-1": [{'name':'P','r':'P','p':(22.5,3)},{'name':'DS','r':'D','p':(8,12)},{'name':'DC','r':'D','p':(22.5,10)},{'name':'DD','r':'D','p':(37,12)},{'name':'CS','r':'C','p':(15,25)},{'name':'CD','r':'C','p':(30,25)},{'name':'ATT','r':'F','p':(22.5,40)}],
-            "2-3-1": [{'name':'P','r':'P','p':(22.5,3)},{'name':'DS','r':'D','p':(12,12)},{'name':'DD','r':'D','p':(33,12)},{'name':'ES','r':'C','p':(5,25)},{'name':'CC','r':'C','p':(22.5,22)},{'name':'ED','r':'C','p':(40,25)},{'name':'ATT','r':'F','p':(22.5,40)}]
+            "3-2-1": [{'name':'P','r':'P','p':(22.5,3)},{'name':'DS','r':'D','p':(8,12)},{'name':'DC','r':'D','p':(22.5,10)},{'name':'DD','r':'D','p':(37,12)},{'name':'CS','r':'C','p':(15,25)},{'name':'CD','r':'C','p':(30,25)},{'name':'ATT','r':'F','p':(22.5,45)}],
+            "2-3-1": [{'name':'P','r':'P','p':(22.5,3)},{'name':'DS','r':'D','p':(12,12)},{'name':'DD','r':'D','p':(33,12)},{'name':'ES','r':'C','p':(5,25)},{'name':'CC','r':'C','p':(22.5,22)},{'name':'ED','r':'C','p':(40,25)},{'name':'ATT','r':'F','p':(22.5,45)}]
         }
     },
     "Calcio a 9": {
         "dims": (60, 70),
         "formations": {
-            "3-3-2": [{'name':'P','r':'P','p':(30,4)},{'name':'DS','r':'D','p':(10,15)},{'name':'DC','r':'D','p':(30,12)},{'name':'DD','r':'D','p':(50,15)},{'name':'CS','r':'C','p':(15,30)},{'name':'CC','r':'C','p':(30,28)},{'name':'CD','r':'C','p':(45,30)},{'name':'AS','r':'F','p':(20,45)},{'name':'AD','r':'F','p':(40,45)}],
-            "3-4-1": [{'name':'P','r':'P','p':(30,4)},{'name':'DS','r':'D','p':(12,15)},{'name':'DC','r':'D','p':(30,12)},{'name':'DD','r':'D','p':(48,15)},{'name':'ES','r':'C','p':(8,30)},{'name':'CCS','r':'C','p':(22,28)},{'name':'CCD','r':'C','p':(38,28)},{'name':'ED','r':'C','p':(52,30)},{'name':'ATT','r':'F','p':(30,45)}]
+            "3-3-2": [{'name':'P','r':'P','p':(30,4)},{'name':'DS','r':'D','p':(10,15)},{'name':'DC','r':'D','p':(30,12)},{'name':'DD','r':'D','p':(50,15)},{'name':'CS','r':'C','p':(15,30)},{'name':'CC','r':'C','p':(30,28)},{'name':'CD','r':'C','p':(45,30)},{'name':'AS','r':'F','p':(20,50)},{'name':'AD','r':'F','p':(40,50)}],
+            "3-4-1": [{'name':'P','r':'P','p':(30,4)},{'name':'DS','r':'D','p':(12,15)},{'name':'DC','r':'D','p':(30,12)},{'name':'DD','r':'D','p':(48,15)},{'name':'ES','r':'C','p':(8,30)},{'name':'CCS','r':'C','p':(22,28)},{'name':'CCD','r':'C','p':(38,28)},{'name':'ED','r':'C','p':(52,30)},{'name':'ATT','r':'F','p':(30,50)}]
         }
     },
     "Calcio a 11": {
@@ -65,7 +65,7 @@ with st.sidebar:
     colors_h = (None, None)
     colors_a = (None, None)
 
-    # --- LOGICA A: LAVAGNA TATTICA (SOLO MIA SQUADRA) ---
+    # --- LOGICA A: LAVAGNA TATTICA (SOLO MIA SQUADRA - METÀ CAMPO) ---
     if mode == "Lavagna Tattica":
         st.subheader("La tua Formazione")
         f_name = st.selectbox("Modulo", formations_list)
@@ -85,7 +85,7 @@ with st.sidebar:
             p_copy['name'] = val
             home_players.append(p_copy)
 
-    # --- LOGICA B: MATCH ANALYSIS (CONTRO AVVERSARIO) ---
+    # --- LOGICA B: MATCH ANALYSIS (CONTRO AVVERSARIO - CAMPO INTERO) ---
     else:
         tab_home, tab_away = st.tabs(["🏠 NOI", "✈️ LORO"])
         
@@ -128,10 +128,18 @@ with st.sidebar:
     c_border = st.color_picker("Bordo Pedine", "#FFFFFF")
     f_color = st.color_picker("Sfondo Campo", "#2E8B57")
 
-# --- 4. Funzione Disegno Intelligente ---
-def draw_board(dim, team_home, team_away, col_home, col_away, border, field_bg):
+# --- 4. Funzione Disegno Intelligente (HALF vs FULL) ---
+def draw_board(mode, dim, team_home, team_away, col_home, col_away, border, field_bg):
     W, L = dim
-    fig, ax = plt.subplots(figsize=(8, 11))
+    
+    # Se è Lavagna Tattica (metà campo), usiamo una figura più quadrata
+    if mode == "Lavagna Tattica":
+        fig, ax = plt.subplots(figsize=(8, 7))
+        ylim_max = L / 2 + 2 # Tagliamo visuale a metà
+    else:
+        fig, ax = plt.subplots(figsize=(8, 11))
+        ylim_max = L + 2 # Campo intero
+
     fig.patch.set_facecolor(field_bg)
     ax.set_facecolor(field_bg)
     ax.set_aspect('equal')
@@ -139,20 +147,19 @@ def draw_board(dim, team_home, team_away, col_home, col_away, border, field_bg):
     lc = "white"
     lw = 2
     
-    # Disegno campo base
+    # 1. Campo Base
     ax.add_patch(patches.Rectangle((0, 0), W, L, edgecolor=lc, facecolor='none', linewidth=lw))
     ax.plot([0, W], [L/2, L/2], color=lc, linewidth=lw)
     r_circle = 9.15 if W > 50 else 3.0
     ax.add_patch(patches.Circle((W/2, L/2), r_circle, edgecolor=lc, facecolor='none', linewidth=lw))
     ax.add_patch(patches.Circle((W/2, L/2), 0.4, color=lc))
     
-    # Logica dimensioni aree
+    # Dimensioni Aree
     if W > 50:
         bw, bh, sbw, sbh, py, gw = 40.32, 16.5, 18.32, 5.5, 11, 7.32
     else:
         bw, bh, sbw, sbh, py, gw = W*0.7, L*0.15, 0, 0, 6, 3.0
         
-    # Disegno Aree (Sempre presenti entrambe per realismo)
     def draw_area(base_y, is_top=False):
         y_box = base_y - bh if is_top else base_y
         y_small = base_y - sbh if is_top else base_y
@@ -165,19 +172,31 @@ def draw_board(dim, team_home, team_away, col_home, col_away, border, field_bg):
         ax.add_patch(patches.Rectangle(((W-gw)/2, y_goal), gw, 1.5, edgecolor=lc, facecolor='none', linewidth=2, alpha=0.6))
 
     draw_area(0, is_top=False)
-    draw_area(L, is_top=True)
+    # Disegniamo l'area alta solo se siamo in Match Analysis per risparmiare risorse grafiche
+    if mode == "Match Analysis":
+        draw_area(L, is_top=True)
     
     # --- DISEGNO SQUADRA 1 (CASA) ---
     for p in team_home:
         x, y = p['p']
+        
+        # LOGICA SPECIALE: Se siamo in modalità "Lavagna Tattica" (metà campo),
+        # dobbiamo "comprimere" la formazione affinché gli attaccanti (che nel DB sono a Y=80)
+        # rientrino nella metà campo visibile.
+        if mode == "Lavagna Tattica":
+            # Mappa Y da 0-L a 0-(L/2) tenendo un po' di margine dal centrocampo
+            # Formula: Y_new = Y * 0.45 + offset
+            y = y * 0.5 
+            if p['r'] == 'P': y = 3 # Fissa il portiere vicino alla linea
+            
         c = col_home[1] if p['r'] == 'P' else col_home[0]
         ax.scatter(x, y, s=600, color=c, edgecolor=border, linewidth=2.5, zorder=10)
-        ax.text(x, y - (L*0.035), p['name'], color='white', ha='center', va='top', 
+        ax.text(x, y - 2, p['name'], color='white', ha='center', va='top', 
                 fontweight='bold', fontsize=8, zorder=11,
                 bbox=dict(facecolor='black', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.2'))
 
-    # --- DISEGNO SQUADRA 2 (OSPITI) - SOLO SE ESISTE ---
-    if team_away is not None:
+    # --- DISEGNO SQUADRA 2 (OSPITI) - SOLO IN MATCH ANALYSIS ---
+    if mode == "Match Analysis" and team_away is not None:
         for p in team_away:
             x, y = p['p']
             # Rotazione 180 gradi
@@ -185,18 +204,20 @@ def draw_board(dim, team_home, team_away, col_home, col_away, border, field_bg):
             
             c = col_away[1] if p['r'] == 'P' else col_away[0]
             ax.scatter(x_inv, y_inv, s=600, color=c, edgecolor=border, linewidth=2.5, zorder=10)
-            # Testo sopra il pallino
-            ax.text(x_inv, y_inv + (L*0.035), p['name'], color='white', ha='center', va='bottom', 
+            ax.text(x_inv, y_inv + 2, p['name'], color='white', ha='center', va='bottom', 
                     fontweight='bold', fontsize=8, zorder=11,
                     bbox=dict(facecolor='black', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.2'))
 
+    # Impostiamo i limiti della visuale
     ax.set_xlim(-2, W+2)
-    ax.set_ylim(-2, L+2)
+    # Qui avviene il "taglio" della metà campo
+    ax.set_ylim(-2, ylim_max)
     ax.axis('off')
+    
     return fig
 
 # --- 5. Render ---
-fig = draw_board(dims, home_players, away_players, colors_h, colors_a, c_border, f_color)
+fig = draw_board(mode, dims, home_players, away_players, colors_h, colors_a, c_border, f_color)
 st.pyplot(fig)
 
 # --- 6. Download ---
