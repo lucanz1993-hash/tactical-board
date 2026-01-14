@@ -168,8 +168,8 @@ def draw_board(mode, dim, team_home, team_away, col_home, col_away, border, fiel
         draw_area(L, is_top=True)
     
     # --- OFFSET ---
-    # Raggio pallino (~1.25m) + Spazio desiderato (0.75m) = 2.0
-    text_offset = 2.0 
+    # Impostato esattamente a 0.75 come richiesto
+    text_offset = 0.75
     
     # --- DISEGNO SQUADRA 1 (CASA) - Sempre in basso ---
     for p in team_home:
