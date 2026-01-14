@@ -14,7 +14,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 2. Database Formazioni (Coordinate 0-100% Campo) ---
-# Nota: Le coordinate Y qui rappresentano la profondità (0 = Porta propria, 100 = Porta avversaria)
 tactics_db = {
     "Calcio a 5": {
         "dims": (25, 40),
@@ -121,7 +120,7 @@ with st.sidebar:
     c_border = st.color_picker("Bordo Pedine", "#FFFFFF")
     f_color = st.color_picker("Sfondo Campo", "#2E8B57")
 
-# --- 4. Funzione Disegno (LOGICA MODIFICATA) ---
+# --- 4. Funzione Disegno (TESTO VICINO) ---
 def draw_board(mode, dim, team_home, team_away, col_home, col_away, border, field_bg):
     W, L = dim
     
@@ -168,42 +167,40 @@ def draw_board(mode, dim, team_home, team_away, col_home, col_away, border, fiel
     if mode == "Match Analysis":
         draw_area(L, is_top=True)
     
+    # Impostazione distanza testo (Offset)
+    text_offset = 1.5 # Era 2, ridotto per avvicinare
+    
     # --- DISEGNO SQUADRA 1 (CASA) - Sempre in basso ---
     for p in team_home:
         x, y = p['p']
         
         # COMPRESSIONE 50%: Schiaccia tutto nella metà inferiore
-        # Anche se l'attaccante ha y=85, diventerà 42.5 (dentro la metà campo)
-        y = y * 0.48 + 1 # 0.48 per lasciare un po' di aria dalla linea di metà campo
+        y = y * 0.48 + 1 
             
         c = col_home[1] if p['r'] == 'P' else col_home[0]
         ax.scatter(x, y, s=600, color=c, edgecolor=border, linewidth=2.5, zorder=10)
-        ax.text(x, y - 2, p['name'], color='white', ha='center', va='top', 
+        
+        # MODIFICA: Offset ridotto e pad ridotto
+        ax.text(x, y - text_offset, p['name'], color='white', ha='center', va='top', 
                 fontweight='bold', fontsize=8, zorder=11,
-                bbox=dict(facecolor='black', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.2'))
+                bbox=dict(facecolor='black', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.1'))
 
     # --- DISEGNO SQUADRA 2 (OSPITI) - Sempre in alto ---
     if mode == "Match Analysis" and team_away is not None:
         for p in team_away:
             x, y = p['p']
             
-            # 1. Compressione 50% (come casa)
             y_compressed = y * 0.48 + 1
-            
-            # 2. Ribaltamento nella metà superiore
-            # Y finale = LunghezzaCampo - Y_compressa
             y_final = L - y_compressed
-            
-            # Invertiamo anche la X per avere la specularità destra/sinistra corretta
             x_final = W - x 
             
             c = col_away[1] if p['r'] == 'P' else col_away[0]
             ax.scatter(x_final, y_final, s=600, color=c, edgecolor=border, linewidth=2.5, zorder=10)
             
-            # Testo sopra per non coprire
-            ax.text(x_final, y_final + 2, p['name'], color='white', ha='center', va='bottom', 
+            # MODIFICA: Offset ridotto e pad ridotto
+            ax.text(x_final, y_final + text_offset, p['name'], color='white', ha='center', va='bottom', 
                     fontweight='bold', fontsize=8, zorder=11,
-                    bbox=dict(facecolor='black', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.2'))
+                    bbox=dict(facecolor='black', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.1'))
 
     ax.set_xlim(-2, W+2)
     ax.set_ylim(-2, ylim_max)
