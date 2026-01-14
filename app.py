@@ -169,7 +169,7 @@ def draw_board(mode, dim, team_home, team_away, col_home, col_away, border, fiel
     
     # --- OFFSET ---
     # Impostato esattamente a 0.75 come richiesto
-    text_offset = 0.75
+    text_offset = 0.9
     
     # --- DISEGNO SQUADRA 1 (CASA) - Sempre in basso ---
     for p in team_home:
@@ -216,3 +216,4 @@ fn = "tattica.png"
 img = io.BytesIO()
 fig.savefig(img, format='png', bbox_inches='tight', facecolor=f_color)
 st.download_button("📷 Scarica Immagine", img, fn, "image/png")
+
