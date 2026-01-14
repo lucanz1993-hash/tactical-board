@@ -120,7 +120,7 @@ with st.sidebar:
     c_border = st.color_picker("Bordo Pedine", "#FFFFFF")
     f_color = st.color_picker("Sfondo Campo", "#2E8B57")
 
-# --- 4. Funzione Disegno (TESTO VICINO) ---
+# --- 4. Funzione Disegno ---
 def draw_board(mode, dim, team_home, team_away, col_home, col_away, border, field_bg):
     W, L = dim
     
@@ -167,8 +167,9 @@ def draw_board(mode, dim, team_home, team_away, col_home, col_away, border, fiel
     if mode == "Match Analysis":
         draw_area(L, is_top=True)
     
-    # Impostazione distanza testo (Offset)
-    text_offset = 1.5 # Era 2, ridotto per avvicinare
+    # --- OFFSET ---
+    # Raggio pallino (~1.25m) + Spazio desiderato (0.75m) = 2.0
+    text_offset = 2.0 
     
     # --- DISEGNO SQUADRA 1 (CASA) - Sempre in basso ---
     for p in team_home:
@@ -180,7 +181,6 @@ def draw_board(mode, dim, team_home, team_away, col_home, col_away, border, fiel
         c = col_home[1] if p['r'] == 'P' else col_home[0]
         ax.scatter(x, y, s=600, color=c, edgecolor=border, linewidth=2.5, zorder=10)
         
-        # MODIFICA: Offset ridotto e pad ridotto
         ax.text(x, y - text_offset, p['name'], color='white', ha='center', va='top', 
                 fontweight='bold', fontsize=8, zorder=11,
                 bbox=dict(facecolor='black', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.1'))
@@ -197,7 +197,6 @@ def draw_board(mode, dim, team_home, team_away, col_home, col_away, border, fiel
             c = col_away[1] if p['r'] == 'P' else col_away[0]
             ax.scatter(x_final, y_final, s=600, color=c, edgecolor=border, linewidth=2.5, zorder=10)
             
-            # MODIFICA: Offset ridotto e pad ridotto
             ax.text(x_final, y_final + text_offset, p['name'], color='white', ha='center', va='bottom', 
                     fontweight='bold', fontsize=8, zorder=11,
                     bbox=dict(facecolor='black', alpha=0.5, edgecolor='none', boxstyle='round,pad=0.1'))
