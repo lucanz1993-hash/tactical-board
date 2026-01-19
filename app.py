@@ -18,7 +18,7 @@ tactics_db = {
     "Calcio a 5": {
         "dims": (25, 40),
         "formations": {
-            "1-2-1": [{'name':'P','r':'P','p':(12.5,2)},{'name':'D','r':'D','p':(12.5,8)},{'name':'LS','r':'C','p':(4,18)},{'name':'LD','r':'C','p':(21,18)},{'name':'PIV','r':'F','p':(12.5,30)}],
+            "1-2-1": [{'name':'P','r':'P','p':(12.5,2)},{'name':'D','r':'D','p':(12.5,8)},{'name':'CS','r':'C','p':(4,18)},{'name':'CD','r':'C','p':(21,18)},{'name':'ATT','r':'F','p':(12.5,30)}],
             "2-2":   [{'name':'P','r':'P','p':(12.5,2)},{'name':'DS','r':'D','p':(6,10)},{'name':'DD','r':'D','p':(19,10)},{'name':'AS','r':'F','p':(6,28)},{'name':'AD','r':'F','p':(19,28)}]
         }
     },
@@ -217,6 +217,7 @@ fn = "tattica.png"
 img = io.BytesIO()
 fig.savefig(img, format='png', bbox_inches='tight', facecolor=f_color)
 st.download_button("📷 Scarica Immagine", img, fn, "image/png")
+
 
 
 
