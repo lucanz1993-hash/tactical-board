@@ -34,6 +34,7 @@ tactics_db = {
         "formations": {
             "3-3-2": [{'name':'P','r':'P','p':(30,4)},{'name':'DS','r':'D','p':(10,15)},{'name':'DC','r':'D','p':(30,12)},{'name':'DD','r':'D','p':(50,15)},{'name':'CS','r':'C','p':(15,30)},{'name':'CC','r':'C','p':(30,28)},{'name':'CD','r':'C','p':(45,30)},{'name':'AS','r':'F','p':(20,55)},{'name':'AD','r':'F','p':(40,55)}],
             "3-4-1": [{'name':'P','r':'P','p':(30,4)},{'name':'DS','r':'D','p':(12,15)},{'name':'DC','r':'D','p':(30,12)},{'name':'DD','r':'D','p':(48,15)},{'name':'ES','r':'C','p':(8,30)},{'name':'CCS','r':'C','p':(22,28)},{'name':'CCD','r':'C','p':(38,28)},{'name':'ED','r':'C','p':(52,30)},{'name':'ATT','r':'F','p':(30,55)}]
+            "4-3-1": [{'name':'P','r':'P','p':(30,4)},{'name':'DS','r':'D','p':(8,15)},{'name':'DCS','r':'D','p':(22,12)},{'name':'DCD','r':'D','p':(38,12)},{'name':'DD','r':'D','p':(52,15)},{'name':'ES','r':'C','p':(12,30)},{'name':'CCS','r':'C','p':(30,28)},{'name':'ED','r':'C','p':(48,30)},{'name':'ATT','r':'F','p':(30,55)}]
         }
     },
     "Calcio a 11": {
@@ -216,4 +217,5 @@ fn = "tattica.png"
 img = io.BytesIO()
 fig.savefig(img, format='png', bbox_inches='tight', facecolor=f_color)
 st.download_button("📷 Scarica Immagine", img, fn, "image/png")
+
 
